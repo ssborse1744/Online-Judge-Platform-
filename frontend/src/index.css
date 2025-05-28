@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+span {
+    color: black;
+    font-size: 1em;
+}
