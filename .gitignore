@@ -6,29 +6,34 @@ node_modules/
 # Testing
 /coverage
 
-# Production
+# Production build
 /build
 /dist
 
-# Generated files
+# Runtime generated files
 backend/codes/
 backend/inputs/
 backend/outputs/
+*.exe
+*.out
+*.class
+*.pyc
 
-# Misc
-.DS_Store
+# Environment files
+.env
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
-.env
 
-# Debug logs
+# Logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+logs
+*.log
 
-# Editor directories and files
+# IDE and editor files
 .vscode/
 .idea/
 *.suo
@@ -36,3 +41,12 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw?
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
