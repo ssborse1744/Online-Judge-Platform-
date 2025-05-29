@@ -119,106 +119,106 @@ const ProblemPage = () => {
   };
 
   if (loading) return <p>Loading...</p>;
-  if (error) return <p>{error}</p>;
-
-  return (
+  if (error) return <p>{error}</p>;  return (
     <div className="min-h-screen flex flex-col items-center bg-gray-100 p-4">
-      <NavBar user={currentUser} onLogout={handleLogout} />
-      <header className="bg-blue-600 w-full py-4 text-white text-center mb-8">
+      <NavBar user={currentUser} onLogout={handleLogout} /><header className="bg-green-600 w-full py-6 text-white text-center mb-8 shadow-lg">
         <div className="container mx-auto">
-          <h1 className="text-3xl font-bold">Online Judge Problems</h1>
+          <h1 className="text-4xl font-bold tracking-wide">Challenge Arena</h1>
+          <p className="mt-2 text-green-100">Test your skills with our curated problems</p>
         </div>
-      </header>
-      <Link
+      </header>      <Link
         to={'/submissions'} // Assuming currentUser has the _id of the user
-        className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 mt-4 inline-block"
+        className="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-lg font-semibold shadow-md transition duration-300 transform hover:scale-105 mt-4 inline-block"
       >
         All Submissions
-      </Link>
-      <div className="container mx-auto">
-        <div className="mb-4 flex justify-between">
+      </Link><div className="container mx-auto">
+        <div className="mb-6 flex justify-between bg-white rounded-xl shadow-md p-6">
           {/* Filter by Tag */}
-          <div>
-            <label className="mr-2">Filter by Tag:</label>
+          <div className="flex items-center space-x-3">
+            <label className="text-gray-700 font-semibold">Filter by Tag:</label>
             <select
               value={filterTag}
               onChange={(e) => setFilterTag(e.target.value)}
-              className="border p-2 rounded"
+              className="border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition duration-300"
             >
-              <option value="">All</option>
+              <option value="">All Tags</option>
               {tags.map(tag => (
                 <option key={tag} value={tag}>{tag}</option>
               ))}
             </select>
           </div>
           {/* Filter by Difficulty */}
-          <div>
-            <label className="mr-2">Filter by Difficulty:</label>
+          <div className="flex items-center space-x-3">
+            <label className="text-gray-700 font-semibold">Filter by Difficulty:</label>
             <select
               value={filterDifficulty}
               onChange={(e) => setFilterDifficulty(e.target.value)}
-              className="border p-2 rounded"
+              className="border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition duration-300"
             >
-              <option value="">All</option>
+              <option value="">All Levels</option>
               {difficulties.map(difficulty => (
                 <option key={difficulty} value={difficulty}>{difficulty}</option>
               ))}
             </select>
           </div>
-        </div>
-        <div className="bg-white shadow-md rounded-lg overflow-hidden">
-          <table className="min-w-full bg-white">
+        </div>        <div className="bg-white shadow-xl rounded-xl overflow-hidden">          <table className="min-w-full bg-white">
             <thead>
-              <tr>
-                <th className="py-2 px-4 bg-gray-200 font-bold uppercase text-sm text-gray-600">Problem Name</th>
-                <th className="py-2 px-4 bg-gray-200 font-bold uppercase text-sm text-gray-600">Tag</th>
-                <th className="py-2 px-4 bg-gray-200 font-bold uppercase text-sm text-gray-600">Difficulty</th>
-                <th className="py-2 px-4 bg-gray-200 font-bold uppercase text-sm text-gray-600">Verdict</th>
-                <th className="py-2 px-4 bg-gray-200 font-bold uppercase text-sm text-gray-600">Submission %</th>
+              <tr className="bg-green-500 text-white">                <th className="py-4 px-6 font-bold uppercase text-sm tracking-wide">Problem Name</th>
+                <th className="py-4 px-6 font-bold uppercase text-sm tracking-wide">Tag</th>
+                <th className="py-4 px-6 font-bold uppercase text-sm tracking-wide">Difficulty</th>
+                <th className="py-4 px-6 font-bold uppercase text-sm tracking-wide">Verdict</th>
+                <th className="py-4 px-6 font-bold uppercase text-sm tracking-wide">Success Rate</th>
               </tr>
             </thead>
             <tbody>
               {filteredProblems.map((problem, index) => {
-                const isSolved = solvedProblems.includes(problem._id);
-                return (
-                  <tr key={index} className={isSolved ? 'bg-green-100' : ''}>
-                    <td className={`py-2 px-4 border-b  ${isSolved ? 'bg-green-100' : ''}`}>
-                      <Link to={`/problems/${problem._id}`} className="text-blue-600 hover:underline">
+                const isSolved = solvedProblems.includes(problem._id);                return (
+                  <tr key={index} className={`hover:bg-gray-50 transition duration-200 ${isSolved ? 'bg-green-50 border-l-4 border-green-500' : ''}`}>
+                    <td className={`py-4 px-6 border-b border-gray-200 ${isSolved ? 'bg-green-50' : ''}`}>
+                      <Link to={`/problems/${problem._id}`} className="text-green-600 hover:text-green-800 font-semibold hover:underline transition duration-300">
                         {problem.name}
                       </Link>
                     </td>
-                    <td className={`py-2 px-4 border-b text-center ${isSolved ? 'bg-green-100' : ''}`}>{problem.tag}</td>
-                    <td className={`py-2 px-4 border-b text-center ${isSolved ? 'bg-green-100' : ''}`}>
-                      <span
-                        className={`inline-block px-3 py-1 rounded-full text-sm font-semibold ${
-                          problem.difficulty === 'easy'
-                            ? 'bg-green-200 text-green-800'
-                            : problem.difficulty === 'medium'
-                            ? 'bg-yellow-200 text-yellow-800'
-                            : 'bg-red-200 text-red-800'
-                        }`}
-                      >
-                        {problem.difficulty}
+                    <td className={`py-4 px-6 border-b border-gray-200 text-center ${isSolved ? 'bg-green-50' : ''}`}>
+                      <span className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm font-medium">
+                        {problem.tag}
                       </span>
                     </td>
-                    <td className={`py-2 px-4 border-b text-center ${isSolved ? 'bg-green-100' : ''}`}>
-                      <a className="text-black-600">
-                        {isSolved ? 'Accepted' : problem.verdict}
-                      </a>
+                    <td className={`py-4 px-6 border-b border-gray-200 text-center ${isSolved ? 'bg-green-50' : ''}`}>
+                      <span
+                        className={`inline-block px-4 py-2 rounded-full text-sm font-bold ${
+                          problem.difficulty === 'easy'
+                            ? 'bg-green-100 text-green-700 border border-green-300'
+                            : problem.difficulty === 'medium'
+                            ? 'bg-yellow-100 text-yellow-700 border border-yellow-300'
+                            : 'bg-red-100 text-red-700 border border-red-300'
+                        }`}
+                      >
+                        {problem.difficulty.toUpperCase()}
+                      </span>
                     </td>
-                    <td className={`py-2 px-4 border-b text-center ${isSolved ? 'bg-green-100' : ''}`}>{problem.submissionPercentage}</td>
+                    <td className={`py-4 px-6 border-b border-gray-200 text-center ${isSolved ? 'bg-green-50' : ''}`}>
+                      <span className={`font-semibold ${isSolved ? 'text-green-600' : 'text-gray-600'}`}>
+                        {isSolved ? 'Accepted' : (problem.verdict || 'Not Attempted')}
+                      </span>
+                    </td>
+                    <td className={`py-4 px-6 border-b border-gray-200 text-center font-semibold ${isSolved ? 'bg-green-50' : ''}`}>
+                      {problem.submissionPercentage}%
+                    </td>
                   </tr>
                 );
               })}
             </tbody>
           </table>
         </div>
-      </div>
-      <footer className="bg-blue-600 w-full py-4 text-white text-center mt-auto">
-        <div className="container mx-auto">&copy; 2024 Online Judge. All rights reserved.</div>
+      </div>      <footer className="bg-green-600 w-full py-4 text-white text-center mt-auto shadow-lg">
+        <div className="container mx-auto">&copy; 2024 CodeArena. All rights reserved.</div>
         <h3>
-        Made with ❤ by Pranav Sarate
+        Made by Sarthak Borse
         </h3>
+        <div className="mt-2 text-sm">
+          <p>Contact: 8010833596 | Email: ssborse2004@gmail.com</p>
+        </div>
       </footer>
     </div>
   );

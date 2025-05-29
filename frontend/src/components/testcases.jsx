@@ -136,8 +136,7 @@ const TestCase = () => {
               className="w-full px-3 py-2 border rounded"
               required
             />
-          </div>
-          <button type="submit" className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600">
+          </div>          <button type="submit" className="w-full bg-green-500 hover:bg-green-600 text-white py-2 rounded transition duration-300">
             Add Test Case
           </button>
         </form>
@@ -167,11 +166,20 @@ const TestCase = () => {
               </div>
             </li>
           ))}
-        </ul>
-        <Link to={`/problems/${problemId}`} className="block text-center mt-4 text-blue-600 hover:text-blue-800">
+        </ul>        <Link to={`/problems/${problemId}`} className="block text-center mt-4 text-blue-600 hover:text-blue-800">
           Back to Problem
         </Link>
       </div>
+      
+      <footer className="bg-green-600 w-full py-4 text-white text-center mt-auto shadow-lg">
+        <div className="container mx-auto">
+          <p className="text-lg font-medium">&copy; 2024 CodeArena. All rights reserved.</p>
+          <p className="mt-2 text-green-100">Made by Sarthak Borse</p>
+          <div className="mt-3 text-sm">
+            <p>Contact: 8010833596 | Email: ssborse2004@gmail.com</p>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 };

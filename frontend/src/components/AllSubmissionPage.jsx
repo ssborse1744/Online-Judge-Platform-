@@ -95,8 +95,7 @@ const SubmissionsPage = () => {
 
   return (
     <div className="min-h-screen flex flex-col items-center bg-gray-100 p-4">
-      <NavBar user={currentUser} onLogout={handleLogout} />
-      <header className="bg-blue-600 w-full py-4 text-white text-center mb-8">
+      <NavBar user={currentUser} onLogout={handleLogout} />      <header className="bg-green-600 w-full py-4 text-white text-center mb-8 shadow-lg">
         <div className="container mx-auto">
           <h1 className="text-3xl font-bold">My Submissions</h1>
         </div>
@@ -134,10 +133,14 @@ const SubmissionsPage = () => {
               ))}
             </tbody>
           </table>
+        </div>      </div>      <footer className="bg-green-600 w-full py-4 text-white text-center mt-auto shadow-lg">
+        <div className="container mx-auto">
+          <p className="text-lg font-medium">&copy; 2024 CodeArena. All rights reserved.</p>
+          <p className="mt-2 text-green-100">Made by Sarthak Borse</p>
+          <div className="mt-3 text-sm">
+            <p>Contact: 8010833596 | Email: ssborse2004@gmail.com</p>
+          </div>
         </div>
-      </div>
-      <footer className="bg-blue-600 w-full py-4 text-white text-center mt-auto">
-        <div className="container mx-auto">&copy; 2024 Online Judge. All rights reserved.</div>
       </footer>
       <CodeModal isOpen={isModalOpen} onRequestClose={closeModal} code={selectedCode} />
     </div>

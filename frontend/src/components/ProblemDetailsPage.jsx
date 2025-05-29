@@ -216,17 +216,16 @@ print('Hello World!')`;
 
   const handleThemeChange = (e) => {
     setSelectedTheme(e.target.value);
-  };
-  const getColorClass = (difficulty) => {
+  };  const getColorClass = (difficulty) => {
     switch (difficulty) {
       case "easy":
-        return "bg-green-300 text-green-900"; // Green background for easy
+        return "bg-green-100 text-green-700 border border-green-300"; // Green background for easy
       case "medium":
-        return "bg-yellow-300 text-yellow-900"; // Yellow background for medium
+        return "bg-yellow-100 text-yellow-700 border border-yellow-300"; // Yellow background for medium
       case "hard":
-        return "bg-red-300 text-red-900"; // Red background for hard
+        return "bg-red-100 text-red-700 border border-red-300"; // Red background for hard
       default:
-        return "bg-gray-300 text-gray-900"; // Default gray background
+        return "bg-gray-100 text-gray-700 border border-gray-300"; // Default gray background
     }
   };
 
@@ -237,29 +236,27 @@ print('Hello World!')`;
   if (error) {
     return <p>{error}</p>;
   }
-
   return (
-    <div className="flex flex-col h-screen">
+    <div className="flex flex-col h-screen bg-gray-100">
       <NavBar user={currentUser} onLogout={handleLogout} />
       <Split
         className="flex flex-1 split"
         direction="horizontal"
         minSize={200}
         sizes={[50, 50]}
-      >
-        {/* Left Pane */}
-        <div className="overflow-auto p-4 bg-white-50">
+      >        {/* Left Pane */}
+        <div className="overflow-auto p-6 bg-white rounded-lg shadow-lg m-2">
           {problem ? (
             <>
-              <div>
-                <h2 className="text-2xl font-bold mb-4">{problem.name}</h2>
+              <div className="mb-6">
+                <h2 className="text-3xl font-bold mb-4 text-gray-800">{problem.name}</h2>
                 <div style={{ display: "inline-block" }}>
                   <span
-                    className={`text-xs font-medium px-2.5 py-1 rounded-[21px] ${getColorClass(
+                    className={`text-sm font-bold px-4 py-2 rounded-full ${getColorClass(
                       problem.difficulty
                     )}`}
                   >
-                    {problem.difficulty}
+                    {problem.difficulty.toUpperCase()}
                   </span>
                 </div>
               </div>
@@ -278,28 +275,30 @@ print('Hello World!')`;
                     <pre className="bg-gray-100 p-2 rounded">{testCase.output}</pre>
                   </li>
                 ))}
-              </ul> */}
-
-              <h3 className="text-lg font-bold mb-2">Constraints</h3>
-              <p className="mb-4">{problem.constraints}</p>
-
-              <h3 className="text-lg font-bold mb-2">Time Limit: 1s</h3>
-              <h3 className="text-lg font-bold mb-2">Memory Limit: 100Mb</h3>
+              </ul> */}              <h3 className="text-xl font-bold mb-3 text-gray-700 border-b-2 border-green-500 pb-2">Constraints</h3>
+              <p className="mb-6 text-gray-600 bg-gray-50 p-4 rounded-lg">{problem.constraints}</p>              <div className="grid grid-cols-2 gap-4 mt-6">
+                <div className="bg-green-50 p-4 rounded-lg border-l-4 border-green-500">
+                  <h3 className="text-lg font-bold text-green-700">Time Limit</h3>
+                  <p className="text-green-600 font-semibold">1 second</p>
+                </div>
+                <div className="bg-teal-50 p-4 rounded-lg border-l-4 border-teal-500">
+                  <h3 className="text-lg font-bold text-teal-700">Memory Limit</h3>
+                  <p className="text-teal-600 font-semibold">100 MB</p>
+                </div>
+              </div>
             </>
           ) : (
             <p>No problem data available</p>
           )}
-        </div>
-
-        {/* Right Pane */}
-        <div className="flex-1 p-4">
+        </div>        {/* Right Pane */}
+        <div className="flex-1 p-4 bg-white rounded-lg shadow-lg m-2">
       
-            <div className="flex items-center mb-4">
-              <span className="text-lg font-semibold mr-2">Theme:</span>
+            <div className="flex items-center mb-6 bg-gray-50 p-4 rounded-lg">
+              <span className="text-lg font-semibold mr-3 text-gray-700">Theme:</span>
               <select
                 value={selectedTheme}
                 onChange={handleThemeChange}
-                className="select-box border border-gray-300 rounded-lg py-1.5 px-4 focus:outline-none focus:border-indigo-500"
+                className="select-box border border-gray-300 rounded-lg py-2 px-4 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition duration-300"
               >
                 <option value="monokai">Monokai</option>
                 <option value="github">GitHub</option>
@@ -311,15 +310,14 @@ print('Hello World!')`;
                 <option value="kuroir">Kuroir</option>
                 <option value="terminal">Terminal</option>
                 <option value="vibrant_ink">Vibrant Ink</option>
-              </select>
-
-              <span className="text-lg font-semibold ml-4 mr-2">Language:</span>              <select
+              </select>              <span className="text-lg font-semibold ml-6 mr-3 text-gray-700">Language:</span>
+              <select
                 value={selectedLanguage}
                 onChange={(e) => {
                   setSelectedLanguage(e.target.value);
                   setCode(getInitialCode(e.target.value)); // Update code template based on selected language
                 }}
-                className="select-box border border-gray-300 rounded-lg py-1.5 px-4 focus:outline-none focus:border-indigo-500"
+                className="select-box border border-gray-300 rounded-lg py-2 px-4 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition duration-300"
               >
                 <option value="cpp">C++</option>
                 <option value="python">Python</option>
@@ -347,39 +345,39 @@ print('Hello World!')`;
                   tabSize: 4,
                 }}
               />
-            </div>
-
-            <div className="flex justify-between mb-4">
-              <div className="w-1/2 pr-2">
-                <h2 className="text-lg font-semibold mb-2">Input</h2>
+            </div>            <div className="flex justify-between mb-6 space-x-4">
+              <div className="w-1/2">
+                <h2 className="text-lg font-bold mb-3 text-gray-700 flex items-center">
+                  Input
+                </h2>
                 <textarea
                   rows="5"
                   value={input}
-                  placeholder="Input"
+                  placeholder="Enter your test input here..."
                   onChange={(e) => setInput(e.target.value)}
-                  className="border border-gray-300 rounded-sm py-1.5 px-4 mb-1 focus:outline-none focus:border-indigo-500 resize-none w-full"
+                  className="border border-gray-300 rounded-lg py-3 px-4 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent resize-none w-full transition duration-300 shadow-sm"
                 ></textarea>
               </div>
-              <div className="w-1/2 pl-2">
-                <h2 className="text-lg font-semibold mb-2">Output</h2>
+              <div className="w-1/2">
+                <h2 className="text-lg font-bold mb-3 text-gray-700 flex items-center">
+                  Output
+                </h2>
                 <div
-                  className="bg-white shadow-md rounded-lg p-4"
+                  className="bg-gray-50 border border-gray-300 rounded-lg p-4 shadow-sm"
                   style={{ minHeight: "140px" }}
                 >
                   <pre
-                    className="whitespace-pre-wrap"
+                    className="whitespace-pre-wrap text-gray-800"
                     style={{ fontFamily: "monospace", fontSize: "0.875rem" }}
                   >
-                    {output}
+                    {output || "Output will appear here..."}
                   </pre>
                 </div>
               </div>
-            </div>
-
-            <div className="flex justify-end mt-4 space-x-4">
+            </div>            <div className="flex justify-end mt-4 space-x-4">
               <button
                 onClick={handleRun}
-                className="bg-gradient-to-br from-pink-500 to-orange-400 hover:from-pink-600 hover:to-orange-500 focus:outline-none text-white font-medium rounded-lg text-sm px-5 py-2.5"
+                className="bg-blue-500 hover:bg-blue-600 focus:outline-none text-white font-semibold rounded-lg text-sm px-6 py-3 shadow-md transition duration-300 transform hover:scale-105"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -400,13 +398,13 @@ print('Hello World!')`;
                     d="M15.91 11.672a.375.375 0 0 1 0 .656l-5.603 3.113a.375.375 0 0 1-.557-.328V8.887c0-.286.307-.466.557-.327l5.603 3.112Z"
                   />
                 </svg>
-                Run
+                Run Code
               </button>
               <button
                 onClick={handleSubmit}
-                className="bg-green-500 text-white px-4 py-3 rounded"
+                className="bg-green-500 hover:bg-green-600 text-white font-semibold px-6 py-3 rounded-lg shadow-md transition duration-300 transform hover:scale-105"
               >
-                Submit
+                Submit Solution
               </button>
             </div>
           

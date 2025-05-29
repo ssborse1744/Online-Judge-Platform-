@@ -113,8 +113,7 @@ const ProfilePage = () => {
 
   return (
     <div className="min-h-screen bg-gray-100">
-      <NavBar user={currentUser} onLogout={handleLogout} />
-      <header className="bg-blue-600 py-4 text-white text-center mb-8">
+      <NavBar user={currentUser} onLogout={handleLogout} />      <header className="bg-green-600 py-4 text-white text-center mb-8 shadow-lg">
         <h1 className="text-3xl font-bold">User Profile</h1>
       </header>
       <div className="container mx-auto p-4">
@@ -128,8 +127,7 @@ const ProfilePage = () => {
                 className="w-20 h-20 rounded-full mr-4"
               />
               <h2 className="text-3xl font-bold">{user.username}</h2>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+            </div>            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
               <div className="col-span-1">
                 <h3 className="text-xl font-semibold mb-2">Personal Info</h3>
                 {!isEditing ? (
@@ -185,18 +183,11 @@ const ProfilePage = () => {
                   <strong>Questions Solved:</strong> {user.solvedProblems.length}
                 </p>
               </div>
-              <div className="col-span-1">
-                <h3 className="text-xl font-semibold mb-2">Badges</h3>
-                <p className="text-lg">
-                  <strong>Badges:</strong> {user.badges ? user.badges.join(', ') : 'None'}
-                </p>
-              </div>
             </div>
             {/* <div className="mb-8">
-              {!isEditing ? (
-                <button
+              {!isEditing ? (                <button
                   onClick={handleEdit}
-                  className="bg-blue-500 text-white px-4 py-2 rounded mr-4"
+                  className="bg-gradient-to-r from-green-500 to-teal-500 hover:from-green-600 hover:to-teal-600 text-white px-4 py-2 rounded mr-4 transition duration-300"
                 >
                   Edit Profile
                 </button>
@@ -233,10 +224,19 @@ const ProfilePage = () => {
                   </Link>
                 </li>
               ))}
-            </ul>
-          </div>
+            </ul>          </div>
         )}
       </div>
+      
+      <footer className="bg-green-600 w-full py-4 text-white text-center mt-auto shadow-lg">
+        <div className="container mx-auto">
+          <p className="text-lg font-medium">&copy; 2024 CodeArena. All rights reserved.</p>
+          <p className="mt-2 text-green-100">Made by Sarthak Borse</p>
+          <div className="mt-3 text-sm">
+            <p>Contact: 8010833596 | Email: ssborse2004@gmail.com</p>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 };

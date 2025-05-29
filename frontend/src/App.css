@@ -26,10 +26,9 @@
     color: red;
     font-size: 0.8em;
   }
-  
   button {
     padding: 10px 15px;
-    background: #007bff;
+    background: #059669;
     color: #fff;
     border: none;
     border-radius: 5px;
@@ -37,7 +36,7 @@
   }
   
   button:hover {
-    background: #0056b3;
+    background: #047857;
   }
   
   /* App.css */
@@ -49,7 +48,7 @@
 }
 
 .split .gutter:hover {
-  background-color: blue; /* Change background color on hover */
+  background-color: #059669; /* Change background color on hover */
 }
 
 /*  */

@@ -14,10 +14,9 @@ const CodeModal = ({ isOpen, onRequestClose, code }) => {
     >
       <div className="flex flex-col">
         <h2 className="text-2xl mb-4">Submission Code</h2>
-        <pre className="bg-gray-100 p-4 rounded overflow-auto max-h-96">{code}</pre>
-        <button
+        <pre className="bg-gray-100 p-4 rounded overflow-auto max-h-96">{code}</pre>        <button
           onClick={onRequestClose}
-          className="bg-blue-500 text-white px-4 py-2 rounded mt-4 self-end"
+          className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded mt-4 self-end transition duration-300"
         >
           Close
         </button>

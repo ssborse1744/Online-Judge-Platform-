@@ -85,7 +85,6 @@ const Login = () => {
       console.error('Failed to logout:', error);
     }
   };
-
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100">
       <ToastContainer />
@@ -96,49 +95,45 @@ const Login = () => {
             <Link to="/">Online Judge</Link>
           </div>
         </div>
-      </header> */}
-      <main className="flex-grow flex flex-col items-center justify-center">
-        <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-sm">
-          <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>
+      </header> */}      <main className="flex-grow flex flex-col items-center justify-center">
+        <div className="bg-white p-8 rounded-2xl shadow-xl w-full max-w-sm border-t-4 border-green-500">
+          <h2 className="text-3xl font-bold mb-6 text-center text-gray-800">🔐 Login</h2>
           <form onSubmit={handleSubmit}>
             <div className="mb-4">
               <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
                 Email
-              </label>
-              <input
+              </label>              <input
                 type="email"
                 id="email"
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                placeholder="Email"
+                className="shadow-sm border border-gray-300 rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition duration-300"
+                placeholder="Enter your email"
                 required
               />
             </div>
             <div className="mb-6">
               <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
                 Password
-              </label>
-              <input
+              </label>              <input
                 type="password"
                 id="password"
                 name="password"
                 value={formData.password}
                 onChange={handleChange}
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-                placeholder="Password"
+                className="shadow-sm border border-gray-300 rounded-lg w-full py-3 px-4 text-gray-700 mb-3 leading-tight focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition duration-300"
+                placeholder="Enter your password"
                 required
               />
-            </div>
-            <div className="flex items-center justify-between">
-              <button
+              />
+            </div>            <div className="flex items-center justify-between">              <button
                 type="submit"
-                className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                className="bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-6 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 transition duration-300 transform hover:scale-105 shadow-md"
               >
                 Sign In
               </button>
-              <Link to="/register" className="inline-block align-baseline font-bold text-sm text-blue-600 hover:text-blue-800">
+              <Link to="/register" className="inline-block align-baseline font-semibold text-sm text-green-600 hover:text-green-800 transition duration-300">
                 Register
               </Link>
             </div>
@@ -151,13 +146,15 @@ const Login = () => {
             <p className="text-center text-green-600">Login successful! Redirecting...</p>
           </div>
         </div>
-      )}
-      <footer className="bg-blue-600 w-full py-4 text-white text-center">
+      )}      <footer className="bg-green-600 w-full py-6 text-white text-center shadow-lg">
         <div className="container mx-auto">
-          &copy; 2024 Online Judge. All rights reserved.
-          <h3>
-        Made with ❤ by Pranav Sarate
-        </h3>
+          <p className="text-lg font-medium">&copy; 2024 CodeArena. All rights reserved.</p>          <p className="mt-2 text-green-100">
+            Crafted with passion for coding excellence
+          </p>
+          <div className="mt-3 text-sm">
+            <p>Contact: 8010833596 | Email: ssborse2004@gmail.com</p>
+            <p>Made by Sarthak Borse</p>
+          </div>
         </div>
       </footer>
     </div>
