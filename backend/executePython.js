@@ -17,8 +17,9 @@ const executePython = (filepath, inputPath) => {
             if (err) {
                 reject(err);
             } else {
+                // Windows: Use python3 or python command
                 const pythonProcess = exec(
-                    `python ${pythonScriptPath}`, // Command to execute Python script
+                    `python "${pythonScriptPath}"`, // Use quoted paths for Windows
                     { cwd: outputPath },
                     (error, stdout, stderr) => {
                         if (error) {

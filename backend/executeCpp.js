@@ -10,21 +10,23 @@ if (!fs.existsSync(outputPath)) {
 
 const executeCpp = (filepath,inputPath) => {
     const jobId = path.basename(filepath).split(".")[0];
-    const outPath = path.join(outputPath, `${jobId}.out`);
+    const outPath = path.join(outputPath, `${jobId}.exe`); // Windows executable extension
 
     return new Promise((resolve, reject) => {
-        exec(
-            `g++ ${filepath} -o ${outPath} && cd ${outputPath} && ./${jobId}.out < ${inputPath}`,
-            (error, stdout, stderr) => {
-                if (error) {
-                    reject({ error, stderr });
-                }
-                if (stderr) {
-                    reject(stderr);
-                }
-                resolve(stdout);
+        // Windows command - use && to chain commands and proper path separators
+        const compileCmd = `g++ "${filepath}" -o "${outPath}"`;
+        const runCmd = `"${outPath}" < "${inputPath}"`;
+        const fullCmd = `${compileCmd} && ${runCmd}`;
+        
+        exec(fullCmd, (error, stdout, stderr) => {
+            if (error) {
+                reject({ error, stderr });
             }
-        );
+            if (stderr) {
+                reject(stderr);
+            }
+            resolve(stdout);
+        });
     });
 };
 

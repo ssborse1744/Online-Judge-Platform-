@@ -467,16 +467,27 @@ app.delete('/problems/:id/testcases/:testCaseId', async (req, res) => {
         const problem = await Problem.findById(problemId);
         if (!problem) {
             return res.status(404).json({ message: 'Problem not found' });
-        }
-  
-          let verdict = 'Accepted';
+        }          let verdict = 'Accepted';
           let testNumber = 0;
           for (let testCase of problem.testCases) {
             testNumber++;
             const inputPath = await generateInputFile(testCase.input);
-            const output = await executeCpp(filePath, inputPath);
-              console.log(`Comparing with Expected Output: ${testCase.output.trim()} ${output}`);
-              if (output.trim() !== testCase.output.trim()) {
+            let testOutput;
+            switch (language) {
+                case 'cpp':
+                    testOutput = await executeCpp(filePath, inputPath);
+                    break;
+                case 'java':
+                    testOutput = await executeJava(filePath, inputPath);
+                    break;
+                case 'python':
+                    testOutput = await executePython(filePath, inputPath);
+                    break;
+                default:
+                    throw new Error("Unsupported language");
+            }
+              console.log(`Comparing with Expected Output: ${testCase.output.trim()} ${testOutput}`);
+              if (testOutput.trim() !== testCase.output.trim()) {
                   verdict = `Wrong answer on test ${ testNumber}`;
                   break; // Uncomment this if you want to stop on first wrong answer
               }
@@ -549,27 +560,6 @@ app.get('/submissions/:problemId', authMiddleware, async (req, res) => {
         res.status(500).json({ message: 'Server error' });
     }
 });
-
-// Determine verdict of the submitted code
-  const determineVerdict = async (output, problemId) => {
-    try {
-        // Fetch the problem details
-        const response = await axios.get(`http://localhost:5050/problems/${problemId}`);
-        const problem = response.data;
-
-        // Compare the output with each test case
-        for (let testCase of problem.testCases) {
-            if (output.trim() === testCase.output.trim()) {
-                return 'Correct';
-            }
-        }
-
-        return 'Incorrect';
-    } catch (error) {
-        console.error('Error determining verdict:', error);
-        return 'Error';
-    }
-};
 
 // Endpoint to get unique tags
 app.get('/tags', async (req, res) => {

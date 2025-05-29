@@ -3,19 +3,24 @@ import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import AceEditor from "react-ace";
 import Split from "react-split";
-import "brace/mode/javascript";
-import "brace/theme/monokai";
-import "brace/theme/github"; // Import additional themes as needed
-import "brace/theme/tomorrow";
-import "brace/theme/twilight";
-import "brace/theme/xcode";
-import "brace/theme/solarized_light";
-import "brace/theme/solarized_dark";
-import "brace/theme/kuroir";
-import "brace/theme/terminal";
-import "brace/theme/vibrant_ink";
-import "ace-builds/src-noconflict/mode-javascript";
+
+// Import ACE editor modes and themes
+import "ace-builds/src-noconflict/mode-c_cpp";
+import "ace-builds/src-noconflict/mode-python";
+import "ace-builds/src-noconflict/mode-java";
 import "ace-builds/src-noconflict/theme-monokai";
+import "ace-builds/src-noconflict/theme-github";
+import "ace-builds/src-noconflict/theme-tomorrow";
+import "ace-builds/src-noconflict/theme-twilight";
+import "ace-builds/src-noconflict/theme-xcode";
+import "ace-builds/src-noconflict/theme-solarized_light";
+import "ace-builds/src-noconflict/theme-solarized_dark";
+import "ace-builds/src-noconflict/ext-language_tools";
+import "ace-builds/src-noconflict/theme-kuroir";
+import "ace-builds/src-noconflict/theme-terminal";
+import "ace-builds/src-noconflict/theme-vibrant_ink";
+import "ace-builds/src-noconflict/ext-language_tools";
+
 import NavBar from "./NavBar";
 import { AiFillLike, AiFillDislike } from "react-icons/ai";
 import { BsCheck2Circle } from "react-icons/bs";
@@ -41,7 +46,6 @@ const ProblemDetailsPage = () => {
   }
   
   `);
-
   const getInitialCode = (language) => {
     switch (language) {
       case "cpp":
@@ -57,6 +61,12 @@ int main() {
         return `# This program prints Hello, world!
 
 print('Hello World!')`;
+      case "java":
+        return `public class Main {
+    public static void main(String[] args) {
+        System.out.println("Hello World!");
+    }
+}`;
       default:
         return "";
     }
@@ -77,7 +87,7 @@ print('Hello World!')`;
           throw new Error("No token found");
         }
 
-        const response = await axios.get("https://backend.oj-online-judge.site/api/auth/me", {
+        const response = await axios.get("http://localhost:5050/api/auth/me", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -99,7 +109,7 @@ print('Hello World!')`;
   const fetchProblemDetails = async () => {
     try {
       const response = await axios.get(
-        `https://backend.oj-online-judge.site/problems/${problemId}`
+        `http://localhost:5050/problems/${problemId}`
       );
       setProblem(response.data);
       setLoading(false);
@@ -113,7 +123,7 @@ print('Hello World!')`;
   const fetchTestCases = async () => {
     try {
       const response = await axios.get(
-        `https://backend.oj-online-judge.site/problems/${problemId}/testcases`
+        `http://localhost:5050/problems/${problemId}/testcases`
       );
       setTestCases(response.data);
     } catch (error) {
@@ -130,7 +140,7 @@ print('Hello World!')`;
     };
 
     try {
-      const { data } = await axios.post("https://backend.oj-online-judge.site/run", payload);
+      const { data } = await axios.post("http://localhost:5050/run", payload);
       setOutput(data.output);
     } catch (error) {
       console.log(error.response);
@@ -153,7 +163,7 @@ print('Hello World!')`;
       }
 
       const { data } = await axios.post(
-        "https://backend.oj-online-judge.site/submit",
+        "http://localhost:5050/submit",
         payload,
         {
           headers: {
@@ -178,7 +188,7 @@ print('Hello World!')`;
   const handleLogout = async () => {
     try {
       await axios.post(
-        "https://backend.oj-online-judge.site/api/auth/logout",
+        "http://localhost:5050/api/auth/logout",
         {},
         {
           headers: {
@@ -303,8 +313,7 @@ print('Hello World!')`;
                 <option value="vibrant_ink">Vibrant Ink</option>
               </select>
 
-              <span className="text-lg font-semibold ml-4 mr-2">Language:</span>
-              <select
+              <span className="text-lg font-semibold ml-4 mr-2">Language:</span>              <select
                 value={selectedLanguage}
                 onChange={(e) => {
                   setSelectedLanguage(e.target.value);
@@ -314,15 +323,15 @@ print('Hello World!')`;
               >
                 <option value="cpp">C++</option>
                 <option value="python">Python</option>
+                <option value="java">Java</option>
               </select>
             </div>
           
             <div
               className="bg-white shadow-md rounded-lg p-4 mb-4"
               style={{ height: "400px" }}
-            >
-              <AceEditor
-                mode={selectedLanguage === "cpp" ? "c_cpp" : "python"} // Set Ace Editor mode dynamically
+            >              <AceEditor
+                mode={selectedLanguage === "cpp" ? "c_cpp" : selectedLanguage === "python" ? "python" : "java"} // Set Ace Editor mode dynamically
                 theme={selectedTheme}
                 name="editor"
                 value={code}

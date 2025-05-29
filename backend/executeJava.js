@@ -11,29 +11,29 @@ if (!fs.existsSync(outputPath)) {
 const executeJava = (filepath, inputPath) => {
     const jobId = path.basename(filepath).split(".")[0];
     const javaFilePath = path.join(outputPath, `${jobId}.java`);
-    const classFilePath = path.join(outputPath, `${jobId}.class`);
 
     return new Promise((resolve, reject) => {
         fs.copyFile(filepath, javaFilePath, (err) => {
             if (err) {
                 reject(err);
             } else {
-                exec(
-                    `javac ${javaFilePath} && java -classpath ${outputPath} ${jobId} < ${inputPath}`,
-                    { cwd: outputPath },
-                    (error, stdout, stderr) => {
-                        if (error) {
-                            console.error(`Java execution error: ${error}`);
-                            reject({ error, stderr });
-                        } else if (stderr) {
-                            console.error(`Java stderr: ${stderr}`);
-                            reject(stderr);
-                        } else {
-                            console.log(`Java stdout: ${stdout}`);
-                            resolve(stdout);
-                        }
+                // Windows: Use quoted paths and proper class path separator
+                const compileCmd = `javac "${javaFilePath}"`;
+                const runCmd = `java -classpath "${outputPath}" ${jobId} < "${inputPath}"`;
+                const fullCmd = `${compileCmd} && ${runCmd}`;
+                
+                exec(fullCmd, { cwd: outputPath }, (error, stdout, stderr) => {
+                    if (error) {
+                        console.error(`Java execution error: ${error}`);
+                        reject({ error, stderr });
+                    } else if (stderr) {
+                        console.error(`Java stderr: ${stderr}`);
+                        reject(stderr);
+                    } else {
+                        console.log(`Java stdout: ${stdout}`);
+                        resolve(stdout);
                     }
-                );
+                });
             }
         });
     });

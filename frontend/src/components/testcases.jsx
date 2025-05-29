@@ -15,7 +15,7 @@ const TestCase = () => {
 
   const fetchTestCases = async () => {
     try {
-      const response = await axios.get(`https://backend.oj-online-judge.site/problems/${problemId}/testcases`);
+      const response = await axios.get(`http://localhost:5050/problems/${problemId}/testcases`);
       setTestCases(response.data);
     } catch (error) {
       console.error(error);
@@ -32,7 +32,7 @@ const TestCase = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(`https://backend.oj-online-judge.site/problems/${problemId}/testcases`, formData);
+      await axios.post(`http://localhost:5050/problems/${problemId}/testcases`, formData);
       setMessage('Test case added successfully!');
       setFormData({ input: '', output: '' });
       fetchTestCases();
@@ -44,7 +44,7 @@ const TestCase = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`https://backend.oj-online-judge.site/problems/${problemId}/testcases/${id}`);
+      await axios.delete(`http://localhost:5050/problems/${problemId}/testcases/${id}`);
       setMessage('Test case deleted successfully!');
       fetchTestCases();
     } catch (error) {
@@ -73,7 +73,7 @@ const TestCase = () => {
           throw new Error('No token found');
         }
 
-        const response = await axios.get('https://backend.oj-online-judge.site/api/auth/me', {
+        const response = await axios.get('http://localhost:5050/api/auth/me', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -89,7 +89,7 @@ const TestCase = () => {
 
   const handleLogout = async () => {
     try {
-      await axios.post('https://backend.oj-online-judge.site/api/auth/logout', {}, {
+      await axios.post('http://localhost:5050/api/auth/logout', {}, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },

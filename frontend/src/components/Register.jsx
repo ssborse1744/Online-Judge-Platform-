@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import NavBar from './NavBar';
+import api from '../api/config';
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -28,7 +28,7 @@ const Register = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('https://backend.oj-online-judge.site/register', formData);
+      const response = await api.post('/register', formData);
       toast.success(response.data.message); // Show success message
       if (response.data.user) {
         setShowPopup(true);

@@ -26,7 +26,7 @@ const ProblemPage = () => {
   // Fetching Problems from Backend
   const fetchProblems = async () => {
     try {
-      const response = await axios.get('https://backend.oj-online-judge.site/problems');
+      const response = await axios.get('http://localhost:5050/problems');
       setProblems(response.data);
       setLoading(false);
       console.log('Fetched problems:', response.data);
@@ -40,7 +40,7 @@ const ProblemPage = () => {
   // Fetching Tags from Backend
   const fetchTags = async () => {
     try {
-      const response = await axios.get('https://backend.oj-online-judge.site/api/problems/tags');
+      const response = await axios.get('http://localhost:5050/api/problems/tags');
       setTags(response.data);
       console.log('Fetched tags:', response.data);
     } catch (error) {
@@ -51,7 +51,7 @@ const ProblemPage = () => {
   // Fetching Difficulties from Backend
   const fetchDifficulties = async () => {
     try {
-      const response = await axios.get('https://backend.oj-online-judge.site/api/problems/difficulties');
+      const response = await axios.get('http://localhost:5050/api/problems/difficulties');
       setDifficulties(response.data);
       console.log('Fetched difficulties:', response.data);
     } catch (error) {
@@ -75,7 +75,7 @@ const ProblemPage = () => {
           throw new Error('No token found');
         }
 
-        const response = await axios.get('https://backend.oj-online-judge.site/api/auth/me', {
+        const response = await axios.get('http://localhost:5050/api/auth/me', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -95,7 +95,7 @@ const ProblemPage = () => {
   // Fetching Solved Problems from Backend
   const fetchSolvedProblems = async (userId) => {
     try {
-      const response = await axios.get(`https://backend.oj-online-judge.site/api/users/${userId}/solvedProblems`);
+      const response = await axios.get(`http://localhost:5050/api/users/${userId}/solvedProblems`);
       setSolvedProblems(response.data.solvedProblems);
       console.log('Fetched solved problems:', response.data.solvedProblems);
     } catch (error) {
@@ -105,7 +105,7 @@ const ProblemPage = () => {
 
   const handleLogout = async () => {
     try {
-      await axios.post('https://backend.oj-online-judge.site/api/auth/logout', {}, {
+      await axios.post('http://localhost:5050/api/auth/logout', {}, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
