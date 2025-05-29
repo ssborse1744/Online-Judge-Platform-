@@ -126,8 +126,9 @@ const Login = () => {
                 placeholder="Enter your password"
                 required
               />
-              />
-            </div>            <div className="flex items-center justify-between">              <button
+            </div>
+            <div className="flex items-center justify-between">
+              <button
                 type="submit"
                 className="bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-6 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 transition duration-300 transform hover:scale-105 shadow-md"
               >
