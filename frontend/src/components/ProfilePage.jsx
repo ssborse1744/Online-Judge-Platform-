@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import NavBar from './NavBar';
+import { API_BASE_URL } from '../api/config';
 
 const ProfilePage = () => {
   const { id } = useParams();
@@ -16,7 +17,7 @@ const ProfilePage = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await axios.get(`http://localhost:5050/users/${id}`);
+        const response = await axios.get(`${API_BASE_URL}/users/${id}`);
         setUser(response.data);
         setEditedUser(response.data);
       } catch (error) {
@@ -36,7 +37,7 @@ const ProfilePage = () => {
           throw new Error('No token found');
         }
 
-        const response = await axios.get('http://localhost:5050/api/auth/me', {
+        const response = await axios.get(`${API_BASE_URL}/api/auth/me`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -69,7 +70,7 @@ const ProfilePage = () => {
         formData.append('profilePhoto', selectedFile);
       }
 
-      const response = await axios.put(`http://localhost:5050/users/${id}`, formData, {
+      const response = await axios.put(`${API_BASE_URL}/users/${id}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -95,7 +96,7 @@ const ProfilePage = () => {
   const handleLogout = async () => {
     try {
       await axios.post(
-        'http://localhost:5050/api/auth/logout',
+        `${API_BASE_URL}/api/auth/logout`,
         {},
         {
           headers: {

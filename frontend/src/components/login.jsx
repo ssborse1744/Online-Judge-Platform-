@@ -4,6 +4,7 @@ import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import NavBar from './NavBar';
+import api, { API_BASE_URL } from '../api/config';
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -22,7 +23,7 @@ const Login = () => {
           throw new Error('No token found');
         }
 
-        const response = await axios.get('http://localhost:5050/api/auth/me', {
+        const response = await axios.get(`${API_BASE_URL}/api/auth/me`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -46,7 +47,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5050/login', formData);
+      const response = await axios.post(`${API_BASE_URL}/login`, formData);
       if (response.data.message) {
         toast.success(response.data.message);
       }
@@ -73,7 +74,7 @@ const Login = () => {
 
   const handleLogout = async () => {
     try {
-      await axios.post('http://localhost:5050/api/auth/logout', {}, {
+      await axios.post(`${API_BASE_URL}/api/auth/logout`, {}, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },

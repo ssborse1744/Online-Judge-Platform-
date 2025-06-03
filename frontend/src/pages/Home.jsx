@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import NavBar from '../components/NavBar';
 import axios from 'axios';
+import { API_BASE_URL } from '../api/config';
 
 const Home = () => {
   const navigate = useNavigate();
@@ -15,7 +16,7 @@ const Home = () => {
           throw new Error('No token found');
         }
 
-        const response = await axios.get('http://localhost:5050/api/auth/me', {
+        const response = await axios.get(`${API_BASE_URL}/api/auth/me`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -31,7 +32,7 @@ const Home = () => {
 
   const handleLogout = async () => {
     try {
-      await axios.post('http://localhost:5050/api/auth/logout', {}, {
+      await axios.post(`${API_BASE_URL}/api/auth/logout`, {}, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },

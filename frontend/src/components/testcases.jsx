@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams, Link } from 'react-router-dom';
 import NavBar from './NavBar';
+import { API_BASE_URL } from '../api/config';
 const TestCase = () => {
   const { problemId } = useParams();
   const [testCases, setTestCases] = useState([]);
@@ -15,7 +16,7 @@ const TestCase = () => {
 
   const fetchTestCases = async () => {
     try {
-      const response = await axios.get(`http://localhost:5050/problems/${problemId}/testcases`);
+      const response = await axios.get(`${API_BASE_URL}/problems/${problemId}/testcases`);
       setTestCases(response.data);
     } catch (error) {
       console.error(error);
@@ -32,7 +33,7 @@ const TestCase = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(`http://localhost:5050/problems/${problemId}/testcases`, formData);
+      await axios.post(`${API_BASE_URL}/problems/${problemId}/testcases`, formData);
       setMessage('Test case added successfully!');
       setFormData({ input: '', output: '' });
       fetchTestCases();
@@ -44,7 +45,7 @@ const TestCase = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:5050/problems/${problemId}/testcases/${id}`);
+      await axios.delete(`${API_BASE_URL}/problems/${problemId}/testcases/${id}`);
       setMessage('Test case deleted successfully!');
       fetchTestCases();
     } catch (error) {
@@ -73,7 +74,7 @@ const TestCase = () => {
           throw new Error('No token found');
         }
 
-        const response = await axios.get('http://localhost:5050/api/auth/me', {
+        const response = await axios.get(`${API_BASE_URL}/api/auth/me`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -89,7 +90,7 @@ const TestCase = () => {
 
   const handleLogout = async () => {
     try {
-      await axios.post('http://localhost:5050/api/auth/logout', {}, {
+      await axios.post(`${API_BASE_URL}/api/auth/logout`, {}, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },

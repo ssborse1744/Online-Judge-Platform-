@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import HomeButton from './HomeButton';
 import NavBar from './NavBar';
+import { API_BASE_URL } from '../api/config';
 
 const Problems = () => {
   const [problems, setProblems] = useState([]);
@@ -35,7 +36,7 @@ const Problems = () => {
           throw new Error('No token found');
         }
 
-        const response = await axios.get('http://localhost:5050/api/auth/me', {
+        const response = await axios.get(`${API_BASE_URL}/api/auth/me`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -51,7 +52,7 @@ const Problems = () => {
 
   const fetchProblems = async () => {
     try {
-      const response = await axios.get('http://localhost:5050/problems');
+      const response = await axios.get(`${API_BASE_URL}/problems`);
       setProblems(response.data);
     } catch (error) {
       console.error(error);
@@ -70,10 +71,10 @@ const Problems = () => {
 
     try {
       if (editingId) {
-        await axios.put(`http://localhost:5050/problems/${editingId}`, formData);
+        await axios.put(`${API_BASE_URL}/problems/${editingId}`, formData);
         setMessage('Problem updated successfully!');
       } else {
-        await axios.post('http://localhost:5050/problems', formData);
+        await axios.post(`${API_BASE_URL}/problems`, formData);
         setMessage('Problem added successfully!');
       }
       setFormData({ name: '', description: '', tag: '', difficulty: 'easy' });
@@ -97,7 +98,7 @@ const Problems = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:5050/problems/${id}`);
+      await axios.delete(`${API_BASE_URL}/problems/${id}`);
       setMessage('Problem deleted successfully!');
       fetchProblems();
     } catch (error) {
@@ -120,7 +121,7 @@ const Problems = () => {
 
   const handleLogout = async () => {
     try {
-      await axios.post('http://localhost:5050/api/auth/logout', {}, {
+      await axios.post(`${API_BASE_URL}/api/auth/logout`, {}, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },

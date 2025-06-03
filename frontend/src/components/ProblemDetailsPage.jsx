@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import AceEditor from "react-ace";
 import Split from "react-split";
+import { API_BASE_URL } from '../api/config';
 
 // Import ACE editor modes and themes
 import "ace-builds/src-noconflict/mode-c_cpp";
@@ -87,7 +88,7 @@ print('Hello World!')`;
           throw new Error("No token found");
         }
 
-        const response = await axios.get("http://localhost:5050/api/auth/me", {
+        const response = await axios.get(`${API_BASE_URL}/api/auth/me`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -109,7 +110,7 @@ print('Hello World!')`;
   const fetchProblemDetails = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5050/problems/${problemId}`
+        `${API_BASE_URL}/problems/${problemId}`
       );
       setProblem(response.data);
       setLoading(false);
@@ -123,7 +124,7 @@ print('Hello World!')`;
   const fetchTestCases = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5050/problems/${problemId}/testcases`
+        `${API_BASE_URL}/problems/${problemId}/testcases`
       );
       setTestCases(response.data);
     } catch (error) {
@@ -140,7 +141,7 @@ print('Hello World!')`;
     };
 
     try {
-      const { data } = await axios.post("http://localhost:5050/run", payload);
+      const { data } = await axios.post(`${API_BASE_URL}/run`, payload);
       setOutput(data.output);
     } catch (error) {
       console.log(error.response);
@@ -163,7 +164,7 @@ print('Hello World!')`;
       }
 
       const { data } = await axios.post(
-        "http://localhost:5050/submit",
+        `${API_BASE_URL}/submit`,
         payload,
         {
           headers: {
@@ -188,7 +189,7 @@ print('Hello World!')`;
   const handleLogout = async () => {
     try {
       await axios.post(
-        "http://localhost:5050/api/auth/logout",
+        `${API_BASE_URL}/api/auth/logout`,
         {},
         {
           headers: {

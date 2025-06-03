@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import NavBar from './NavBar';
+import { API_BASE_URL } from '../api/config';
 
 const ProblemPage = () => {
   const { id } = useParams();
@@ -26,7 +27,7 @@ const ProblemPage = () => {
   // Fetching Problems from Backend
   const fetchProblems = async () => {
     try {
-      const response = await axios.get('http://localhost:5050/problems');
+      const response = await axios.get(`${API_BASE_URL}/problems`);
       setProblems(response.data);
       setLoading(false);
       console.log('Fetched problems:', response.data);
@@ -40,7 +41,7 @@ const ProblemPage = () => {
   // Fetching Tags from Backend
   const fetchTags = async () => {
     try {
-      const response = await axios.get('http://localhost:5050/api/problems/tags');
+      const response = await axios.get(`${API_BASE_URL}/api/problems/tags`);
       setTags(response.data);
       console.log('Fetched tags:', response.data);
     } catch (error) {
@@ -51,7 +52,7 @@ const ProblemPage = () => {
   // Fetching Difficulties from Backend
   const fetchDifficulties = async () => {
     try {
-      const response = await axios.get('http://localhost:5050/api/problems/difficulties');
+      const response = await axios.get(`${API_BASE_URL}/api/problems/difficulties`);
       setDifficulties(response.data);
       console.log('Fetched difficulties:', response.data);
     } catch (error) {
@@ -75,7 +76,7 @@ const ProblemPage = () => {
           throw new Error('No token found');
         }
 
-        const response = await axios.get('http://localhost:5050/api/auth/me', {
+        const response = await axios.get(`${API_BASE_URL}/api/auth/me`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -95,7 +96,7 @@ const ProblemPage = () => {
   // Fetching Solved Problems from Backend
   const fetchSolvedProblems = async (userId) => {
     try {
-      const response = await axios.get(`http://localhost:5050/api/users/${userId}/solvedProblems`);
+      const response = await axios.get(`${API_BASE_URL}/api/users/${userId}/solvedProblems`);
       setSolvedProblems(response.data.solvedProblems);
       console.log('Fetched solved problems:', response.data.solvedProblems);
     } catch (error) {
@@ -105,7 +106,7 @@ const ProblemPage = () => {
 
   const handleLogout = async () => {
     try {
-      await axios.post('http://localhost:5050/api/auth/logout', {}, {
+      await axios.post(`${API_BASE_URL}/api/auth/logout`, {}, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
