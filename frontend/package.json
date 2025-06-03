@@ -6,19 +6,24 @@
   "engines": {
     "node": ">=18.0.0",
     "npm": ">=8.0.0"
-  },"scripts": {
+  },
+  "scripts": {
     "dev": "vite",
-    "build": "vite build",
-    "vercel-build": "vite build",
+    "build": "node vercel-build.js",
+    "vercel-build": "node vercel-build.js",
+    "build:direct": "npx vite build",
+    "build:esm": "node build-esm.js",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
-  },"dependencies": {
+    "preview": "vite preview",
+    "build:vite": "node build-vite.js"
+  },
+  "dependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
     "@fortawesome/react-fontawesome": "github:fortawesome/react-fontawesome",
     "@mui/material": "^5.17.1",
     "@uiw/react-codemirror": "^4.23.12",
-    "@vitejs/plugin-react": "^4.5.0",
+    "@vitejs/plugin-react": "^4.5.1",
     "axios": "^1.9.0",
     "brace": "^0.11.1",
     "codemirror": "^6.0.1",
@@ -46,6 +51,7 @@
     "eslint-plugin-react-hooks": "^4.6.2",
     "eslint-plugin-react-refresh": "^0.4.20",
     "postcss": "^8.5.3",
-    "tailwindcss": "^3.4.17"
+    "tailwindcss": "^3.4.17",
+    "terser": "^5.40.0"
   }
 }

@@ -1,15 +1,10 @@
 {
-  "version": 2,
-  "installCommand": "npm install",
-  "buildCommand": "npx vite build",
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "vite",
+  "installCommand": "node vercel-prebuild.js && npm install",
+  "buildCommand": "vite build",
   "outputDirectory": "dist",
-  "routes": [
-    {
-      "handle": "filesystem"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/index.html"
-    }
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
   ]
 }

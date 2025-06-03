@@ -1,0 +1,10 @@
+# Ignore development files that are not needed in production
+node_modules
+.git
+.github
+.vscode
+*.log
+build-vercel.sh
+build.js
+build-esm.js
+vercel-build.js
