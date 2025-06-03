@@ -185,6 +185,39 @@ If you want to deploy both from the root directory:
 2. **Database Connection**: Verify MongoDB connection string and IP whitelist
 3. **Environment Variables**: Check all required env vars are set in Vercel dashboard
 4. **API Endpoints**: Ensure frontend is pointing to correct backend URL
+5. **Vite Build Error**: If you get "vite: command not found", ensure Vite is in dependencies (not devDependencies)
+
+### Build Issues
+
+**Error: "vite: command not found"**
+- **Solution**: Move Vite from devDependencies to dependencies in package.json
+- **Reason**: Vercel doesn't install devDependencies by default for production builds
+
+**Frontend vercel.json Configuration**
+Ensure your frontend vercel.json looks like this:
+```json
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "dist"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "handle": "filesystem"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
+    }
+  ]
+}
+```
 
 ### Testing Deployment
 
