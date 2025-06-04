@@ -9,8 +9,10 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "node vercel-build.js",
-    "vercel-build": "node vercel-build.js",
+    "build": "npx vite build",
+    "build:production": "node build-production.js",
+    "postinstall": "echo 'Dependencies installed successfully'",
+    "vercel-build": "npx vite build",
     "build:direct": "npx vite build",
     "build:esm": "node build-esm.js",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
